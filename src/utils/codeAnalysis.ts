@@ -13,7 +13,12 @@ export function calculateCodeComplexity(code: string): number {
   
   // Count control structures and add to complexity
   const loops = (code.match(/for|while|do\s+{/g) || []).length;
-  const recursion = (code.match(/function\s+\w+\([^)]*\)[^{]*{[\s\S]*?\1\s*\(/g) || []).length;
+  
+  // Fixed the recursion detection regex by properly defining capture groups
+  const recursivePattern = /function\s+(\w+)\([^)]*\)[^{]*{[\s\S]*?\1\s*\(/g;
+  const recursionMatches = code.match(recursivePattern) || [];
+  const recursion = recursionMatches.length;
+  
   const conditionals = (code.match(/if|else|switch|case|[^=!]=>/g) || []).length;
   
   // Add complexity for each control structure
