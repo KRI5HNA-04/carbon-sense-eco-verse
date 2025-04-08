@@ -1,17 +1,20 @@
 
 import React from 'react';
-import Layout from './Layout';
+import Navbar from './Navbar';
 import UserMenu from '../auth/UserMenu';
 
-// This wrapper would be used in your application once you can modify the Layout component directly
+// This wrapper provides only the authenticated header without duplicating the footer
 const AuthenticatedLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <Layout>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
       <div className="absolute top-4 right-6 z-50">
         <UserMenu />
       </div>
-      {children}
-    </Layout>
+      <main className="flex-grow pt-16">
+        {children}
+      </main>
+    </div>
   );
 };
 
