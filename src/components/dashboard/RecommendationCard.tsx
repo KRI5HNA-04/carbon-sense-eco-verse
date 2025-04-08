@@ -21,7 +21,7 @@ const recommendations = [
   },
   {
     title: 'Switch to LED Lighting',
-    description: 'Replace your home's remaining incandescent bulbs with energy-efficient LED alternatives.',
+    description: "Replace your home's remaining incandescent bulbs with energy-efficient LED alternatives.",
     potential: '8.3 kgCO₂e monthly reduction',
     difficulty: 'Easy',
     color: 'text-amber-600 dark:text-amber-400',
