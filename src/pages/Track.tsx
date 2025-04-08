@@ -8,6 +8,28 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import CodeOptimizer from '@/components/track/CodeOptimizer';
 
 const Track = () => {
+  const [activities, setActivities] = useState([
+    {
+      type: 'Car trip to office',
+      details: '20 km • Today, 9:15 AM',
+      emission: 4.2
+    },
+    {
+      type: 'Electricity usage',
+      details: '3.5 kWh • Yesterday, 8:30 PM',
+      emission: 1.8
+    },
+    {
+      type: 'Ordered new headphones',
+      details: '1 item • Yesterday, 3:45 PM',
+      emission: 5.3
+    }
+  ]);
+
+  const handleNewActivity = (activity: { type: string, details: string, emission: number }) => {
+    setActivities(prev => [activity, ...prev]);
+  };
+
   return (
     <Layout>
       <div className="cs-container py-10">
@@ -27,7 +49,7 @@ const Track = () => {
           
           <TabsContent value="activity" className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <CarbonActivityForm />
+              <CarbonActivityForm onActivitySaved={handleNewActivity} />
               
               <Card>
                 <CardHeader>
@@ -36,27 +58,15 @@ const Track = () => {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">Car trip to office</p>
-                        <p className="text-xs text-muted-foreground">20 km • Today, 9:15 AM</p>
+                    {activities.map((activity, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
+                        <div className="flex-1">
+                          <p className="font-medium text-sm">{activity.type}</p>
+                          <p className="text-xs text-muted-foreground">{activity.details}</p>
+                        </div>
+                        <span className="text-sm font-medium">{activity.emission.toFixed(1)} kgCO₂e</span>
                       </div>
-                      <span className="text-sm font-medium">4.2 kgCO₂e</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">Electricity usage</p>
-                        <p className="text-xs text-muted-foreground">3.5 kWh • Yesterday, 8:30 PM</p>
-                      </div>
-                      <span className="text-sm font-medium">1.8 kgCO₂e</span>
-                    </div>
-                    <div className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
-                      <div className="flex-1">
-                        <p className="font-medium text-sm">Ordered new headphones</p>
-                        <p className="text-xs text-muted-foreground">1 item • Yesterday, 3:45 PM</p>
-                      </div>
-                      <span className="text-sm font-medium">5.3 kgCO₂e</span>
-                    </div>
+                    ))}
                   </div>
                 </CardContent>
               </Card>
