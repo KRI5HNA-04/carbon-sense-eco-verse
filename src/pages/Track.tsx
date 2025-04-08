@@ -1,10 +1,11 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '@/components/layout/Layout';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import CarbonActivityForm from '@/components/track/CarbonActivityForm';
 import WebsiteCalculator from '@/components/track/WebsiteCalculator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import CodeOptimizer from '@/components/track/CodeOptimizer';
 
 const Track = () => {
   return (
@@ -22,7 +23,6 @@ const Track = () => {
             <TabsTrigger value="activity">Daily Activity</TabsTrigger>
             <TabsTrigger value="website">Website Calculator</TabsTrigger>
             <TabsTrigger value="code">Code Optimizer</TabsTrigger>
-            <TabsTrigger value="bulk">Bulk Import</TabsTrigger>
           </TabsList>
           
           <TabsContent value="activity" className="space-y-6">
@@ -70,31 +70,7 @@ const Track = () => {
           </TabsContent>
           
           <TabsContent value="code">
-            <Card>
-              <CardHeader>
-                <CardTitle>Code Optimization Tool</CardTitle>
-                <CardDescription>Analyze code efficiency from a carbon perspective</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground py-8 text-center">
-                  Code optimization tool content will appear here
-                </p>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="bulk">
-            <Card>
-              <CardHeader>
-                <CardTitle>Bulk Import</CardTitle>
-                <CardDescription>Upload data from other sources</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p className="text-muted-foreground py-8 text-center">
-                  Bulk import tool content will appear here
-                </p>
-              </CardContent>
-            </Card>
+            <CodeOptimizer />
           </TabsContent>
         </Tabs>
       </div>

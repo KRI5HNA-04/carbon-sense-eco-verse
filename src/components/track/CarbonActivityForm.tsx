@@ -36,11 +36,11 @@ const categories = [
     label: 'Transportation',
     icon: <Car className="mr-2 h-4 w-4" />,
     activities: [
-      { value: 'car', label: 'Car Trip' },
-      { value: 'bus', label: 'Bus Journey' },
-      { value: 'train', label: 'Train Journey' },
-      { value: 'flight', label: 'Flight' },
-      { value: 'bike', label: 'Cycling' },
+      { value: 'car', label: 'Car Trip', factor: 0.21 }, // kg CO2e per km
+      { value: 'bus', label: 'Bus Journey', factor: 0.09 }, // kg CO2e per km
+      { value: 'train', label: 'Train Journey', factor: 0.04 }, // kg CO2e per km
+      { value: 'flight', label: 'Flight', factor: 0.24 }, // kg CO2e per km
+      { value: 'bike', label: 'Cycling', factor: 0.0 }, // kg CO2e per km
     ]
   },
   {
@@ -48,10 +48,10 @@ const categories = [
     label: 'Home Energy',
     icon: <Home className="mr-2 h-4 w-4" />,
     activities: [
-      { value: 'heating', label: 'Heating' },
-      { value: 'cooling', label: 'Air Conditioning' },
-      { value: 'electricity', label: 'Electricity Usage' },
-      { value: 'water', label: 'Water Usage' },
+      { value: 'heating', label: 'Heating', factor: 0.5 }, // kg CO2e per hour
+      { value: 'cooling', label: 'Air Conditioning', factor: 0.4 }, // kg CO2e per hour
+      { value: 'electricity', label: 'Electricity Usage', factor: 0.5 }, // kg CO2e per kWh
+      { value: 'water', label: 'Water Usage', factor: 0.2 }, // kg CO2e per liter
     ]
   },
   {
@@ -59,10 +59,10 @@ const categories = [
     label: 'Digital Activities',
     icon: <Laptop className="mr-2 h-4 w-4" />,
     activities: [
-      { value: 'streaming', label: 'Video Streaming' },
-      { value: 'browsing', label: 'Web Browsing' },
-      { value: 'email', label: 'Email Usage' },
-      { value: 'cloud', label: 'Cloud Storage' },
+      { value: 'streaming', label: 'Video Streaming', factor: 0.08 }, // kg CO2e per hour
+      { value: 'browsing', label: 'Web Browsing', factor: 0.02 }, // kg CO2e per hour
+      { value: 'email', label: 'Email Usage', factor: 0.004 }, // kg CO2e per email
+      { value: 'cloud', label: 'Cloud Storage', factor: 0.003 }, // kg CO2e per GB
     ]
   },
   {
@@ -70,9 +70,9 @@ const categories = [
     label: 'Food & Drink',
     icon: <Utensils className="mr-2 h-4 w-4" />,
     activities: [
-      { value: 'meal', label: 'Meal' },
-      { value: 'beverage', label: 'Beverage' },
-      { value: 'groceries', label: 'Grocery Shopping' },
+      { value: 'meal', label: 'Meal', factor: 2.5 }, // kg CO2e per meal (average)
+      { value: 'beverage', label: 'Beverage', factor: 0.2 }, // kg CO2e per beverage
+      { value: 'groceries', label: 'Grocery Shopping', factor: 0.6 }, // kg CO2e per kg
     ]
   },
   {
@@ -80,19 +80,28 @@ const categories = [
     label: 'Shopping',
     icon: <ShoppingBag className="mr-2 h-4 w-4" />,
     activities: [
-      { value: 'clothes', label: 'Clothing' },
-      { value: 'electronics', label: 'Electronics' },
-      { value: 'household', label: 'Household Items' },
-      { value: 'other', label: 'Other Purchases' },
+      { value: 'clothes', label: 'Clothing', factor: 10 }, // kg CO2e per item
+      { value: 'electronics', label: 'Electronics', factor: 25 }, // kg CO2e per item
+      { value: 'household', label: 'Household Items', factor: 8 }, // kg CO2e per item
+      { value: 'other', label: 'Other Purchases', factor: 5 }, // kg CO2e per item
     ]
   }
 ];
 
+interface FormValues {
+  category: string;
+  activity: string;
+  amount: string;
+  unit: string;
+  notes: string;
+}
+
 const CarbonActivityForm = () => {
   const { toast } = useToast();
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [calculatedEmission, setCalculatedEmission] = useState<number | null>(null);
   
-  const form = useForm({
+  const form = useForm<FormValues>({
     defaultValues: {
       category: '',
       activity: '',
@@ -102,20 +111,44 @@ const CarbonActivityForm = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
-    console.log('Form submitted:', data);
+  const calculateEmission = (data: FormValues) => {
+    if (!data.category || !data.activity || !data.amount) return 0;
+    
+    const amount = parseFloat(data.amount);
+    if (isNaN(amount) || amount <= 0) return 0;
+    
+    // Find the activity to get its emission factor
+    const category = categories.find(c => c.value === data.category);
+    if (!category) return 0;
+    
+    const activity = category.activities.find(a => a.value === data.activity);
+    if (!activity) return 0;
+    
+    // Calculate emission based on activity factor and amount
+    return amount * activity.factor;
+  };
+
+  const onSubmit = (data: FormValues) => {
+    const emission = calculateEmission(data);
+    setCalculatedEmission(emission);
+    
+    console.log('Form submitted:', data, 'Calculated emission:', emission);
+    
     toast({
       title: "Activity Recorded",
-      description: "Your carbon activity has been logged successfully.",
-      duration: 3000,
+      description: `Your carbon footprint for this activity is ${emission.toFixed(2)} kgCO₂e`,
+      duration: 5000,
     });
-    form.reset();
-    setSelectedCategory(null);
+    
+    // Don't reset form if user wants to see the result
+    // form.reset();
+    // setSelectedCategory(null);
   };
 
   const handleCategoryChange = (value: string) => {
     setSelectedCategory(value);
     form.setValue('activity', '');
+    setCalculatedEmission(null);
   };
 
   const selectedCategoryData = categories.find(c => c.value === selectedCategory);
@@ -252,6 +285,22 @@ const CarbonActivityForm = () => {
             <Button type="submit" className="w-full">Calculate & Save Activity</Button>
           </form>
         </Form>
+        
+        {calculatedEmission !== null && (
+          <div className="mt-6 p-4 bg-muted/50 rounded-lg border border-border">
+            <h3 className="font-medium mb-2">Carbon Footprint Impact</h3>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-muted-foreground">Estimated emissions:</span>
+              <span className="font-semibold text-lg">{calculatedEmission.toFixed(2)} kgCO₂e</span>
+            </div>
+            <div className="mt-2 h-2 w-full bg-muted rounded-full overflow-hidden">
+              <div 
+                className="h-full bg-gradient-to-r from-cs-green-500 to-cs-blue-400 rounded-full"
+                style={{ width: `${Math.min(100, (calculatedEmission / 20) * 100)}%` }}
+              />
+            </div>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
