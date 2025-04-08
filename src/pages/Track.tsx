@@ -6,6 +6,7 @@ import CarbonActivityForm from '@/components/track/CarbonActivityForm';
 import WebsiteCalculator from '@/components/track/WebsiteCalculator';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import CodeOptimizer from '@/components/track/CodeOptimizer';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const Track = () => {
   const [activities, setActivities] = useState([
@@ -57,17 +58,19 @@ const Track = () => {
                   <CardDescription>Your recently recorded carbon activities</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
-                    {activities.map((activity, index) => (
-                      <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
-                        <div className="flex-1">
-                          <p className="font-medium text-sm">{activity.type}</p>
-                          <p className="text-xs text-muted-foreground">{activity.details}</p>
+                  <ScrollArea className="h-[450px] pr-4">
+                    <div className="space-y-2">
+                      {activities.map((activity, index) => (
+                        <div key={index} className="flex items-center justify-between p-3 bg-muted/50 rounded-md">
+                          <div className="flex-1">
+                            <p className="font-medium text-sm">{activity.type}</p>
+                            <p className="text-xs text-muted-foreground">{activity.details}</p>
+                          </div>
+                          <span className="text-sm font-medium">{activity.emission.toFixed(1)} kgCO₂e</span>
                         </div>
-                        <span className="text-sm font-medium">{activity.emission.toFixed(1)} kgCO₂e</span>
-                      </div>
-                    ))}
-                  </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
                 </CardContent>
               </Card>
             </div>
