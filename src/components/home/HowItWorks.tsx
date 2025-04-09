@@ -42,11 +42,11 @@ const HowItWorks = () => {
         
         <div className="relative">
           {/* Connection line */}
-          <div className="hidden md:block absolute top-24 left-0 right-0 h-0.5 bg-gradient-to-r from-cs-green-300 via-cs-blue-300 to-cs-green-300"></div>
+          <div className="hidden md:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-cs-green-300 via-cs-blue-300 to-cs-green-300 transform -translate-y-1/2"></div>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
             {steps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center text-center">
+              <div key={index} className="flex flex-col items-center text-center z-10 bg-background">
                 <div className={`relative ${step.color} p-4 rounded-full mb-6 animate-float`}>
                   {step.icon}
                   <div className="hidden md:block absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-10 h-10 bg-muted rounded-full z-[-1]"></div>
