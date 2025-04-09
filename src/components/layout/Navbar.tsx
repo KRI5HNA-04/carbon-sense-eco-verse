@@ -1,11 +1,19 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Menu, X, Leaf } from 'lucide-react';
+import { ThemeToggle } from '../theme/ThemeToggle';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const navigate = useNavigate();
+  const { user } = useAuth();
+
+  const handleLoginClick = () => {
+    navigate('/auth');
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-background/80 backdrop-blur-md z-50 border-b border-border">
@@ -23,11 +31,13 @@ const Navbar = () => {
           <Link to="/track" className="text-sm font-medium hover:text-cs-green-600 dark:hover:text-cs-green-400 transition-colors">Track Carbon</Link>
           <Link to="/reduce" className="text-sm font-medium hover:text-cs-green-600 dark:hover:text-cs-green-400 transition-colors">Reduce Impact</Link>
           <Link to="/about" className="text-sm font-medium hover:text-cs-green-600 dark:hover:text-cs-green-400 transition-colors">About</Link>
-          <Button variant="default" size="sm">Login</Button>
+          <ThemeToggle />
+          {!user && <Button variant="default" size="sm" onClick={handleLoginClick}>Login</Button>}
         </div>
 
         {/* Mobile Menu Button */}
-        <div className="md:hidden">
+        <div className="md:hidden flex items-center gap-2">
+          <ThemeToggle />
           <Button 
             variant="ghost" 
             size="sm" 
@@ -71,7 +81,7 @@ const Navbar = () => {
             >
               About
             </Link>
-            <Button className="w-full" size="sm">Login</Button>
+            {!user && <Button className="w-full" size="sm" onClick={handleLoginClick}>Login</Button>}
           </div>
         </div>
       )}

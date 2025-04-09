@@ -5,83 +5,93 @@
 
 @layer base {
   :root {
-    --background: 142 50% 98%;
-    --foreground: 142 30% 10%;
-
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
-    --card-foreground: 142 30% 10%;
-
+    --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
-    --popover-foreground: 142 30% 10%;
-
-    --primary: 142 55% 30%;
-    --primary-foreground: 0 0% 98%;
-
-    --secondary: 200 98% 42%;
-    --secondary-foreground: 0 0% 98%;
-
-    --muted: 142 10% 93%;
-    --muted-foreground: 142 5% 45%;
-
-    --accent: 142 10% 90%;
-    --accent-foreground: 142 55% 30%;
-
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 142.1 70.6% 45.3%; /* cs-green-500 */
+    --primary-foreground: 355.7 100% 97.3%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-
-    --border: 142 20% 85%;
-    --input: 142 20% 85%;
-    --ring: 142 55% 30%;
-
-    --radius: 0.75rem;
-
-    --sidebar-background: 142 50% 98%;
-    --sidebar-foreground: 142 30% 20%;
-    --sidebar-primary: 142 55% 30%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 142 10% 90%;
-    --sidebar-accent-foreground: 142 55% 30%;
-    --sidebar-border: 142 20% 85%;
-    --sidebar-ring: 142 55% 30%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 142.1 70.6% 45.3%; /* cs-green-500 */
+    
+    /* Custom Colors */
+    --cs-green-50: 140 76% 97%; 
+    --cs-green-100: 141 84% 93%;
+    --cs-green-200: 141 79% 85%;
+    --cs-green-300: 142.1 77.4% 73.1%;
+    --cs-green-400: 142.1 69.2% 58%;
+    --cs-green-500: 142.1 70.6% 45.3%;
+    --cs-green-600: 142.4 76.2% 36.3%;
+    --cs-green-700: 142.8 71.8% 29.2%;
+    --cs-green-800: 143.1 64.2% 24.1%;
+    --cs-green-900: 144.3 61.2% 20.2%;
+    
+    --cs-blue-50: 210 100% 97%; 
+    --cs-blue-100: 210 100% 92%;
+    --cs-blue-200: 208 100% 85%;
+    --cs-blue-300: 209 100% 76%;
+    --cs-blue-400: 208 98% 62%;
+    --cs-blue-500: 210 98% 53%;
+    --cs-blue-600: 212 96% 44%;
+    --cs-blue-700: 213 94% 36%;
+    --cs-blue-800: 215 92% 30%;
+    --cs-blue-900: 217 91% 24%;
   }
-
+ 
   .dark {
-    --background: 142 30% 8%;
-    --foreground: 142 5% 90%;
-
-    --card: 142 30% 10%;
-    --card-foreground: 142 5% 90%;
-
-    --popover: 142 30% 10%;
-    --popover-foreground: 142 5% 90%;
-
-    --primary: 142 50% 40%;
-    --primary-foreground: 142 10% 10%;
-
-    --secondary: 200 98% 42%;
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 142.1 70.6% 45.3%; /* cs-green-500 */
+    --primary-foreground: 144.3 61.2% 12.2%;
+    --secondary: 240 3.7% 15.9%;
     --secondary-foreground: 0 0% 98%;
-
-    --muted: 142 20% 15%;
-    --muted-foreground: 142 5% 65%;
-
-    --accent: 142 20% 20%;
-    --accent-foreground: 142 50% 80%;
-
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 142 20% 25%;
-    --input: 142 20% 25%;
-    --ring: 142 50% 40%;
-
-    --sidebar-background: 142 30% 10%;
-    --sidebar-foreground: 142 5% 90%;
-    --sidebar-primary: 142 50% 40%;
-    --sidebar-primary-foreground: 142 10% 10%;
-    --sidebar-accent: 142 20% 20%;
-    --sidebar-accent-foreground: 142 50% 80%;
-    --sidebar-border: 142 20% 25%;
-    --sidebar-ring: 142 50% 40%;
+    --destructive-foreground: 0 85.7% 97.3%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.1 76.2% 36.3%; /* cs-green-600 */
+    
+    /* Custom Dark Theme Colors */
+    --cs-green-50: 144 60% 10%; 
+    --cs-green-100: 144 54% 16%;
+    --cs-green-200: 144 48% 24%;
+    --cs-green-300: 143 44% 32%;
+    --cs-green-400: 142.5 45% 42%;
+    --cs-green-500: 142.1 70.6% 45.3%;
+    --cs-green-600: 142.1 65.2% 60%;
+    --cs-green-700: 142 69% 72%;
+    --cs-green-800: 141 76% 85%;
+    --cs-green-900: 140 82% 95%;
+    
+    --cs-blue-50: 215 70% 10%; 
+    --cs-blue-100: 213 65% 18%;
+    --cs-blue-200: 212 60% 26%;
+    --cs-blue-300: 211 55% 38%;
+    --cs-blue-400: 210 58% 48%;
+    --cs-blue-500: 210 98% 53%;
+    --cs-blue-600: 209 85% 65%;
+    --cs-blue-700: 209 90% 80%;
+    --cs-blue-800: 208 95% 90%;
+    --cs-blue-900: 210 100% 97%;
   }
 }
 
@@ -89,26 +99,16 @@
   * {
     @apply border-border;
   }
-
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground;
   }
 }
 
-@layer components {
-  .cs-container {
-    @apply container max-w-6xl mx-auto px-4 sm:px-6 lg:px-8;
-  }
-  
-  .text-gradient-green {
-    @apply bg-gradient-to-r from-cs-green-500 to-cs-blue-400 bg-clip-text text-transparent;
-  }
-  
-  .eco-card {
-    @apply bg-white/60 dark:bg-cs-green-950/40 backdrop-blur-sm border border-cs-green-100 dark:border-cs-green-800 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300;
-  }
-  
-  .hover-lift {
-    @apply transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg;
-  }
+.cs-container {
+  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Remove the underline on steps */
+h3.step::after {
+  display: none !important;
 }
